@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/pickupLocationTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Pickup Location: "
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/destinationLocationTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Destination Location: "
+        app:layout_constraintTop_toBottomOf="@id/pickupLocationTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Add additional TextViews for ride cost, driver details, etc. -->
+
+    <Button
+        android:id="@+id/cancelRideButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Cancel Ride"
+        app:layout_constraintTop_toBottomOf="@id/destinationLocationTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Optionally, add a contact driver button or other actions -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

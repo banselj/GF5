@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "801202042770",
+    "project_id": "gf5-70fca",
+    "storage_bucket": "gf5-70fca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801202042770:android:c6850e3ba68bf59f69b34b",
+        "android_client_info": {
+          "package_name": "com.example.gf5"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcyTaZNkLlpuCS5qcWbf9kYLujde5TsGY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

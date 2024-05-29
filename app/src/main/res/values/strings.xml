@@ -1,0 +1,17 @@
+
+<resources>
+    <string name="GratisFare">GF5 App</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="email_hint">Enter Email</string>
+    <string name="password_hint">Enter Password</string>
+    <string name="register">Register</string>
+    <string name="pickup_location">Pickup Location</string>
+    <string name="destination_location">Destination Location</string>
+    <string name="request_ride">Request Ride</string>
+    <string name="driver_name">Driver Name</string>
+    <string name="cancel_ride">Cancel Ride</string>
+<!-- Add other strings here -->
+</resources>

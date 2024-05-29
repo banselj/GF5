@@ -1,0 +1,47 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ExtraText">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/GratisFare"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.GF5"
+        tools:targetApi="31">
+
+        <!-- Services Declaration -->
+        <service
+            android:name=".LocationService"
+            android:enabled="true"
+            android:exported="false"/>
+
+        <service
+            android:name=".DriverTrackingService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="location">
+        </service>
+
+        <!-- MainActivity Declaration -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".LoginActivity" android:exported="true"/>
+        <activity android:name=".RegistrationActivity" android:exported="true"/>
+        <activity android:name=".RideRequestActivity" android:exported="true"/>
+        <activity android:name=".DriverMatchingActivity" android:exported="true"/>
+
+    </application>
+</manifest>

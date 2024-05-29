@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/pickupLocationEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/pickup_location"
+        android:autofillHints="Pickup Location" />
+
+    <EditText
+        android:id="@+id/destinationLocationEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/destination_location"
+        android:autofillHints="Destination Location" />
+
+    <Button
+        android:id="@+id/requestRideButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/request_ride" />
+
+    <!-- Add additional UI components as needed -->
+</LinearLayout>
