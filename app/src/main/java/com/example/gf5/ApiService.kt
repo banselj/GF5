@@ -59,4 +59,10 @@ interface ApiService {
 
     @GET("rides/search")
     fun searchRides(@Query("pickupLocation") pickupLocation: String, @Query("destinationLocation") destinationLocation: String): Call<List<Ride>>
+
+    @POST("rides/cancel/{rideId}")
+    suspend fun cancelRide(@Path("rideId") rideId: String): Response<Void>
+
+    @GET("rides/details/{rideId}")
+    suspend fun fetchRideDetails(@Path("rideId") rideId: String): Response<RideResponse>
 }

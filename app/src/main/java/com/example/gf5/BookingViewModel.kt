@@ -23,12 +23,39 @@ class BookingViewModel(private val rideRepository: RideRepository) : ViewModel()
         }
     }
 
+    fun cancelRide(rideId: String) {
+        viewModelScope.launch {
+            _bookingStatus.value = BookingStatus.Loading
+            try {
+                val success = rideRepository.cancelRide(rideId)
+                if (success) {
+                    _bookingStatus.value = BookingStatus.Idle
+                } else {
+                    _bookingStatus.value = BookingStatus.Error("Failed to cancel ride")
+                }
+            } catch (e: Exception) {
+                _bookingStatus.value = BookingStatus.Error(e.message ?: "Unknown Error")
+            }
+        }
+    }
+
+    fun fetchRideDetails(rideId: String) {
+        viewModelScope.launch {
+            _bookingStatus.value = BookingStatus.Loading
+            try {
+                val rideDetails = rideRepository.fetchRideDetails(rideId)
+                _bookingStatus.value = BookingStatus.Success(rideDetails)
+            } catch (e: Exception) {
+                _bookingStatus.value = BookingStatus.Error(e.message ?: "Unknown Error")
+            }
+        }
+    }
+
     data class RideDetails(
         val rideId: String,
         val status: String,
         val pickupLocation: String,
         val destinationLocation: String
-        // Add any other relevant fields as needed
     )
 
     sealed class BookingStatus {

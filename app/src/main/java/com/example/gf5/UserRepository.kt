@@ -32,4 +32,42 @@ class UserRepository(private val auth: FirebaseAuth) {
     fun logoutUser() {
         auth.signOut()
     }
+
+    // Function to reset password
+    suspend fun resetPassword(email: String) {
+        auth.sendPasswordResetEmail(email).await()
+    }
+
+    // Function to update user's email
+    suspend fun updateUserEmail(newEmail: String): Boolean {
+        val user = auth.currentUser
+        return if (user != null) {
+            user.updateEmail(newEmail).await()
+            true
+        } else {
+            false
+        }
+    }
+
+    // Function to update user's password
+    suspend fun updateUserPassword(newPassword: String): Boolean {
+        val user = auth.currentUser
+        return if (user != null) {
+            user.updatePassword(newPassword).await()
+            true
+        } else {
+            false
+        }
+    }
+
+    // Function to delete user account
+    suspend fun deleteUserAccount(): Boolean {
+        val user = auth.currentUser
+        return if (user != null) {
+            user.delete().await()
+            true
+        } else {
+            false
+        }
+    }
 }

@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/light_gray">
+
+    <TextView
+        android:id="@+id/registrationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:textColor="@color/navy_blue"
+        android:layout_marginBottom="24dp"/>
 
     <EditText
         android:id="@+id/emailEditText"
@@ -15,6 +25,7 @@
         android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
         android:padding="12dp"
+        android:background="@drawable/edit_text_background"
         android:autofillHints="emailAddress"/>
 
     <EditText
@@ -26,16 +37,26 @@
         android:inputType="textPassword"
         android:layout_marginTop="16dp"
         android:padding="12dp"
+        android:background="@drawable/edit_text_background"
         android:autofillHints="password"/>
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/register"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/gratisfare_blue"
+        android:textColor="@color/white"/>
 
-    <!-- Other UI elements can be added here as needed -->
-
+    <Button
+        android:id="@+id/verifyIDButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Verify ID"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/gratisfare_blue"
+        android:textColor="@color/white"/>
 </LinearLayout>

@@ -1,12 +1,12 @@
 package com.example.gf5
 
-import android.app.Service
-import android.content.Intent
-import android.os.IBinder
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.Service
+import android.content.Intent
 import android.os.Build
+import android.os.IBinder
 import androidx.annotation.RequiresApi
 import com.google.android.gms.location.*
 
@@ -35,31 +35,27 @@ class DriverTrackingService : Service() {
 
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
-                // Implement your logic to handle location updates
+                // Handle location updates
+                for (location in locationResult.locations) {
+                    // Process location updates
+                }
             }
         }
 
         startLocationUpdates()
     }
 
-
-
     private fun startLocationUpdates() {
         try {
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
         } catch (unlikely: SecurityException) {
-            // Log or handle the security exception
+            // Handle security exception
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotification(): Notification {
-        val channelId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            "driver_tracking_channel"
-        } else {
-            ""
-        }
-
+        val channelId = "driver_tracking_channel"
         return Notification.Builder(this, channelId)
             .setContentTitle("Driver Tracking Active")
             .setContentText("Location is being updated in real-time.")
@@ -85,5 +81,3 @@ class DriverTrackingService : Service() {
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 }
-
-

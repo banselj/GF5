@@ -7,11 +7,7 @@ import android.content.pm.PackageManager
 import android.os.IBinder
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.*
 
 class LocationService : Service() {
 
@@ -30,6 +26,11 @@ class LocationService : Service() {
                     override fun onLocationResult(locationResult: LocationResult) {
                         for (location in locationResult.locations) {
                             // Handle the location update securely
+                            // For example, you can broadcast the location or save it to a database
+                            val intent = Intent("com.example.gf5.LOCATION_UPDATE")
+                            intent.putExtra("latitude", location.latitude)
+                            intent.putExtra("longitude", location.longitude)
+                            sendBroadcast(intent)
                         }
                     }
                 }
@@ -40,13 +41,12 @@ class LocationService : Service() {
     }
 
     private fun createLocationRequest(): LocationRequest = LocationRequest.create().apply {
-        interval = 10000
-        fastestInterval = 5000
+        interval = 10000 // 10 seconds
+        fastestInterval = 5000 // 5 seconds
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
 
     private fun startLocationUpdates(locationRequest: LocationRequest, locationCallback: LocationCallback) {
-        // Permission check is redundant here since it's already checked in onCreate
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -55,13 +55,7 @@ class LocationService : Service() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            // Permissions were already checked in onCreate
             return
         }
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)

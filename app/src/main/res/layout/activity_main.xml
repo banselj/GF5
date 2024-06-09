@@ -4,27 +4,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/light_gray">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/logo"
+        android:layout_gravity="center"
+        android:contentDescription="@string/app_name"
+        android:layout_marginBottom="24dp"/>
 
     <Button
         android:id="@+id/btn_sign_in"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign In with Google"
-        android:onClick="signInWithGoogle"/>
+        android:onClick="signInWithGoogle"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/gratisfare_blue"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/btn_sign_up"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign Up"
-        android:onClick="signUp"/>
+        android:onClick="signUp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/gratisfare_blue"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/btn_regular_sign_in"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign In"
-        android:onClick="regularSignIn"/>
-
+        android:onClick="regularSignIn"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/gratisfare_blue"
+        android:textColor="@color/white"/>
 </LinearLayout>
