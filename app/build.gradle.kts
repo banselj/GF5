@@ -57,6 +57,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-database-ktx")
     implementation("com.google.firebase:firebase-storage-ktx")
+    implementation ("com.google.firebase:firebase-messaging-ktx")
 
     // Google Play Services
     implementation("com.google.android.gms:play-services-maps:18.2.0")
@@ -105,4 +106,5 @@ dependencies {
 
     // Other libraries
     implementation("androidx.browser:browser:1.8.0")
+    implementation ("androidx.databinding:databinding-runtime:8.4.2")
 }

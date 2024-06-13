@@ -13,5 +13,7 @@
     <string name="request_ride">Request Ride</string>
     <string name="driver_name">Driver Name</string>
     <string name="cancel_ride">Cancel Ride</string>
-<!-- Add other strings here -->
+    <string name="app_name">Your App Name</string>
+    <string name="gratisfare">GratisFare</string>
+    <!-- Add other strings here -->
 </resources>

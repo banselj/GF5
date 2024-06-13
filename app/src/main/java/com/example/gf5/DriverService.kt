@@ -5,7 +5,6 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-import java.sql.Driver
 
 interface DriverService {
     @GET("drivers/available")
@@ -16,4 +15,7 @@ interface DriverService {
 
     @POST("drivers/{driverId}/status")
     suspend fun updateDriverStatus(@Path("driverId") driverId: String, @Body newStatus: DriverStatus): Response<Boolean>
+
+    @GET("drivers/{driverId}/next-ride")
+    suspend fun getNextRide(@Path("driverId") driverId: String): Response<RideDetails>
 }

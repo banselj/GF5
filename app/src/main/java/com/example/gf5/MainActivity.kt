@@ -1,7 +1,7 @@
 package com.example.gf5
 
-import android.content.Intent
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,11 +11,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
 
@@ -35,7 +38,18 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Box(modifier = Modifier.padding(16.dp)) {
+                    var alpha by remember { mutableFloatStateOf(0f) }
+
+                    LaunchedEffect(Unit) {
+                        delay(500) // Start delay
+                        alpha = 1f
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .alpha(alpha)
+                    ) {
                         Text(
                             text = "Welcome to GratisFare!",
                             style = MaterialTheme.typography.headlineMedium

@@ -1,21 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/light_gray">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/driverHomeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Driver Home"
-        android:textSize="24sp"
-        android:layout_gravity="center"
-        android:textColor="@color/navy_blue"
-        android:layout_marginBottom="24dp"/>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.gf5.RideAssignmentViewModel" />
+        <variable
+            name="statusViewModel"
+            type="com.example.gf5.DriverStatusViewModel" />
+    </data>
 
-    <!-- Add other UI elements specific to driver home screen here -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/destinationTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No destination assigned yet"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:padding="16dp"
+            android:gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/goOnlineButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go Online"
+            android:onClick="@{() -> statusViewModel.setStatus(DriverStatus.AVAILABLE)}"
+            android:enabled="@{statusViewModel.status != DriverStatus.AVAILABLE}" />
+
+        <Button
+            android:id="@+id/goBusyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go Busy"
+            android:onClick="@{() -> statusViewModel.setStatus(DriverStatus.BUSY)}"
+            android:enabled="@{statusViewModel.status != DriverStatus.BUSY}" />
+
+        <Button
+            android:id="@+id/goOfflineButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go Offline"
+            android:onClick="@{() -> statusViewModel.setStatus(DriverStatus.OFFLINE)}"
+            android:enabled="@{statusViewModel.status != DriverStatus.OFFLINE}" />
+
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:onClick="@{() -> viewModel.onLogout()}" />
+    </LinearLayout>
+</layout>
