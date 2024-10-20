@@ -4,10 +4,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.gf5.RideAssignmentViewModel" />
+            type="com.example.gf5.viewmodels.RideAssignmentViewModel" />
         <variable
             name="statusViewModel"
-            type="com.example.gf5.DriverStatusViewModel" />
+            type="com.example.gf5.viewmodels.DriverStatusViewModel" />
     </data>
 
     <LinearLayout

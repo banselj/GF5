@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="ExtraText">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissions -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -13,45 +13,39 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        tools:replace="android:supportsRtl"
-
-
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/GratisFare"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GF5"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        tools:replace="android:supportsRtl">
 
         <!-- Google Maps API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_API_KEY_HERE" />
+            android:value="YOUR_ACTUAL_GOOGLE_MAPS_API_KEY" />
 
         <!-- Onfido API Key -->
         <meta-data
             android:name="com.onfido.api.token"
-            android:value="YOUR_ONFIDO_API_TOKEN" />
+            android:value="YOUR_ACTUAL_ONFIDO_API_TOKEN" />
 
         <!-- Services Declaration -->
         <service
-            android:name=".LocationService"
+            android:name=".services.LocationService"
             android:enabled="true"
             android:exported="false"/>
 
-        <service
-            android:name=".DriverTrackingService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="location">
-        </service>
+
 
         <!-- MainActivity Declaration -->
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,11 +53,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LoginActivity" android:exported="true"/>
-        <activity android:name=".RegistrationActivity" android:exported="true"/>
+        <!-- Other Activities Declaration -->
+        <activity android:name=".activities.LoginActivity" android:exported="true"/>
+        <activity android:name=".activities.RegistrationActivity" android:exported="true"/>
+        <activity android:name=".activities.DriverHomeActivity" android:exported="true"/>
+        <activity android:name=".activities.RiderHomeActivity" android:exported="true"/>
         <activity android:name=".RideRequestActivity" android:exported="true"/>
-        <activity android:name=".DriverMatchingActivity" android:exported="true"/>
-        <activity android:name=".MapsActivity" android:exported="true"/>
+        <activity android:name=".activities.DriverMatchingActivity" android:exported="true"/>
+        <activity android:name=".activities.MapsActivity" android:exported="true"/>
 
     </application>
 </manifest>

@@ -1,19 +1,89 @@
-
+<!-- File: res/values/strings.xml -->
 <resources>
-    <string name="GratisFare">GF5 App</string>
+
+    <!-- App Name -->
+    <string name="app_name">GratisFare</string>
+
+    <!-- Authentication -->
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="sign_up">Sign Up</string>
+    <string name="register">Register</string>
+
+    <!-- Input Hints -->
     <string name="email_hint">Enter Email</string>
     <string name="password_hint">Enter Password</string>
-    <string name="register">Register</string>
+
+    <!-- Welcome Message -->
+    <string name="welcome_message">Welcome to GratisFare!</string>
+
+    <!-- Registration Feedback -->
+    <string name="registration_successful">Registration successful</string>
+    <string name="registration_failed">Registration failed: %1$s</string>
+
+    <!-- KYC Feedback -->
+    <string name="kyc_verification_successful">KYC verification successful</string>
+    <string name="kyc_verification_failed">KYC verification failed: %1$s</string>
+    <string name="kyc_verification_exited">KYC verification exited: %1$s</string>
+    <string name="error_starting_kyc">Error starting KYC process: %1$s</string>
+
+    <!-- Password Requirements -->
+    <string name="password_requirements">
+        Password must be at least 8 characters and include a number, an uppercase letter, a lowercase letter, and a special character.
+    </string>
+
+    <!-- Location Labels -->
     <string name="pickup_location">Pickup Location</string>
     <string name="destination_location">Destination Location</string>
+
+    <!-- Ride Actions -->
     <string name="request_ride">Request Ride</string>
-    <string name="driver_name">Driver Name</string>
     <string name="cancel_ride">Cancel Ride</string>
-    <string name="app_name">Your App Name</string>
-    <string name="gratisfare">GratisFare</string>
-    <!-- Add other strings here -->
+
+    <!-- Driver Information -->
+    <string name="driver_name">Driver Name</string>
+
+    <!-- General Errors -->
+    <string name="enter_valid_email">Please enter a valid email address.</string>
+
+    <!-- KYC Initiation -->
+    <string name="kyc_initiate_error">Failed to initiate KYC process: %1$s</string>
+
+    <!-- Driver Home -->
+    <string name="driver_home_title">Driver Home</string>
+    <string name="no_destination_assigned">No destination assigned</string>
+    <string name="next_destination">Next Destination</string>
+    <string name="driver_status">Driver Status</string>
+
+    <!-- Driver Status Actions -->
+    <string name="go_online">Go Online</string>
+    <string name="go_busy">Go Busy</string>
+    <string name="go_offline">Go Offline</string>
+    <string name="logout">Logout</string>
+
+    <!-- Ride Matching Feedback -->
+    <string name="ride_matched">Ride matched successfully</string>
+    <string name="matching_error">Error matching ride: %1$s</string>
+    <string name="search_cancelled">Search has been cancelled.</string>
+
+    <!-- Driver Tracking Notifications -->
+    <string name="driver_tracking_active">Driver Tracking Active</string>
+    <string name="location_tracking_running">Location tracking is running.</string>
+
+    <!-- Ride Assignment Status -->
+    <string name="ride_assignment_success">Ride assignment successful</string>
+    <string name="ride_assignment_error">Ride assignment error: %1$s</string>
+    <string name="no_current_rides">No current rides available</string>
+
+    <!-- Permissions Feedback -->
+    <string name="background_location_permission_required">Background location permission is required for tracking.</string>
+    <string name="location_permissions_required">Location permissions are required to track your location.</string>
+
+    <!-- Additional Strings -->
+    <string name="GratisFare">GratisFare</string>
+    <!-- Removed redundant or duplicate entries -->
+
+    <!-- Add other strings here as needed -->
+
 </resources>

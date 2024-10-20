@@ -2,7 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <!-- ViewModel declaration if needed -->
+        <!-- Define your data variables here -->
+        <variable
+            name="viewModel"
+            type="com.example.gf5.viewmodels.LoginViewModel" />
     </data>
 
     <LinearLayout
@@ -11,35 +14,25 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Your UI components here -->
         <EditText
-            android:id="@+id/emailEditText"
+            android:id="@+id/usernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:alpha="0" />
+            android:hint="Username" />
 
         <EditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:inputType="textPassword"
-            android:alpha="0" />
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:alpha="0" />
-
-        <Button
-            android:id="@+id/forgotPasswordButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Forgot Password"
-            android:alpha="0" />
+            android:text="Login" />
 
     </LinearLayout>
 </layout>
