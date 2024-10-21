@@ -20,6 +20,7 @@ object NetworkModule {
 
     private const val BASE_URL = "https://your.api.base.url/" // Replace with your API base URL
 
+
     @Provides
     @Singleton
     fun provideGson(): Gson = GsonBuilder().create()

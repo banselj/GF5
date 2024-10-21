@@ -1,4 +1,4 @@
-// File: com/example/gf5/network/DriverService.kt
+
 package com.example.gf5.network
 
 import com.example.gf5.models.Driver
@@ -33,7 +33,7 @@ interface DriverService {
     suspend fun updateDriverStatus(
         @Path("id") driverId: String,
         @Body status: DriverStatus
-    ): Response<Unit>
+    ): Response<Boolean> // Ensure the API returns a Boolean
 
     /**
      * Retrieves the next ride assigned to a driver.

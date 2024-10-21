@@ -4,6 +4,7 @@
     <!-- App Name -->
     <string name="app_name">GratisFare</string>
 
+
     <!-- Authentication -->
     <string name="email">Email</string>
     <string name="password">Password</string>

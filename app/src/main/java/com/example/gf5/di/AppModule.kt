@@ -35,6 +35,7 @@ object AppModule {
     fun provideFusedLocationProviderClient(context: Context): FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
 
+
     // Provide ApiService
     @Provides
     @Singleton

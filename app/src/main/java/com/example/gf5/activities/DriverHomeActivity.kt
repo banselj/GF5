@@ -86,6 +86,7 @@ class DriverHomeActivity : ComponentActivity() {
         // Check and request location permissions
         checkAndRequestPermissions()
 
+
         setContent {
             GF5Theme {
                 // Observe and collect ride assignments and driver status as state

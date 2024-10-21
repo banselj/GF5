@@ -13,6 +13,7 @@
         <item name="colorOnSurface">@color/navy_blue</item>
         <item name="colorError">@color/red</item>
         <item name="colorOnError">@color/white</item>
+
         <!-- Other theme attributes -->
     </style>
 

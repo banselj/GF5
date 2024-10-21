@@ -17,6 +17,7 @@ class RideAdapter(
         notifyDataSetChanged()
     }
 
+
     inner class RideViewHolder(private val binding: ItemRideBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(ride: Ride) {
             binding.rideIdTextView.text = ride.id

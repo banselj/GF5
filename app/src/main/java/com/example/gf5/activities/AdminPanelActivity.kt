@@ -19,6 +19,7 @@ import com.example.gf5.models.User
 import com.example.gf5.viewmodels.AdminViewModel
 import kotlinx.coroutines.launch
 
+
 /**
  * Activity representing the Admin Panel where administrators can manage users, rides, and ads.
  */

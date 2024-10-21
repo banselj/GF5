@@ -1,4 +1,4 @@
-// File: com/example/gf5/model/BookingViewModel.kt
+
 package com.example.gf5.viewmodels
 
 import androidx.lifecycle.ViewModel

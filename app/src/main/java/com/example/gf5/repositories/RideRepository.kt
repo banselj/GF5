@@ -1,5 +1,6 @@
 package com.example.gf5.repositories
 
+
 import com.example.gf5.viewmodels.BookingViewModel
 
 interface RideRepository {

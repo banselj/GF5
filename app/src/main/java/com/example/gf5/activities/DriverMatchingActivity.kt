@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
  * Activity responsible for matching drivers with ride requests.
  * Displays a map and allows drivers to cancel their search.
  */
+
 @AndroidEntryPoint
 class DriverMatchingActivity : ComponentActivity() {
 

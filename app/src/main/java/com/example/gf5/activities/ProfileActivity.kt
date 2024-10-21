@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
+
 @AndroidEntryPoint
 class ProfileActivity : AppCompatActivity() {
 

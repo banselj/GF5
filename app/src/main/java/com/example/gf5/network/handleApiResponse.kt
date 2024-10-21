@@ -1,4 +1,5 @@
-// File: com/example/gf5/network/ApiResponseHandler.kt
+
+
 package com.example.gf5.network
 
 import retrofit2.Response
@@ -14,7 +15,10 @@ import java.io.IOException
  * @throws IOException If a network error occurs.
  * @throws ApiException If the response is not successful or body is null.
  */
-suspend fun <T> handleApiResponse(response: Response<T>, errorMessage: String): T {
+suspend fun <T> handleApiResponse(
+    response: Response<T>,
+    errorMessage: String = "An error occurred while processing the request"
+): T {
     if (response.isSuccessful) {
         return response.body() ?: throw ApiException("Response body is null")
     } else {

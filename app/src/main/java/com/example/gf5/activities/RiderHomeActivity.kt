@@ -17,6 +17,7 @@ import com.example.gf5.ui.theme.GF5Theme
 import com.example.gf5.viewmodels.RiderHomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class RiderHomeActivity : ComponentActivity() {
 

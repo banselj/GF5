@@ -10,6 +10,7 @@
         <variable
             name="statusViewModel"
             type="com.example.gf5.viewmodels.DriverStatusViewModel" />
+
     </data>
 
     <LinearLayout

@@ -1,5 +1,6 @@
 package com.example.gf5.models
 
+
 data class Vehicle(
     val id: String,
     val latitude: Double,

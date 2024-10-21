@@ -17,6 +17,7 @@ class ExampleFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_example, container, false)
     }
 
+
     private fun navigateToAnotherFragment() {
         val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
         fragmentTransaction.setCustomAnimations(

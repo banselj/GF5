@@ -19,6 +19,7 @@ class UserAdapter(private val onItemClick: (User) -> Unit) : RecyclerView.Adapte
         }
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UserViewHolder(binding)

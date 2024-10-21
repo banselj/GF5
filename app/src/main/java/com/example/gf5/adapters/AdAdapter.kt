@@ -48,6 +48,7 @@ class AdAdapter(
             }
         }
 
+
         /**
          * Formats a timestamp into a readable date string.
          *

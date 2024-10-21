@@ -1,7 +1,7 @@
-// File: com/example/gf5/network/NetworkModule.kt
+
 package com.example.gf5.network
 
-
+import com.example.gf5.BuildConfig
 import com.google.android.datatransport.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

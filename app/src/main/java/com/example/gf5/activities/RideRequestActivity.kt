@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.google.android.gms.location.FusedLocationProviderClient
 
+
 @AndroidEntryPoint
 class RideRequestActivity : AppCompatActivity(), OnMapReadyCallback {
 

@@ -20,6 +20,7 @@ data class Ad private constructor(
          *
          * @throws IllegalArgumentException if any validation fails.
          */
+
         fun create(
             id: String,
             campaignName: String,

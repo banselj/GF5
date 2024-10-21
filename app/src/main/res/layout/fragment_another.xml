@@ -7,6 +7,7 @@
     android:padding="16dp"
     tools:context=".fragments.AnotherFragment">
 
+
     <TextView
         android:id="@+id/textViewWelcome"
         android:layout_width="wrap_content"

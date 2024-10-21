@@ -6,6 +6,7 @@ plugins {
     id("com.google.devtools.ksp") version "1.9.20-1.0.13"
 }
 
+
 android {
     namespace = "com.example.gf5"
     compileSdk = 34

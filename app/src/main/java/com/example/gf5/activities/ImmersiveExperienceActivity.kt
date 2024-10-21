@@ -31,6 +31,7 @@ class ImmersiveExperienceActivity : AppCompatActivity() {
         observeImmersiveChanges()
     }
 
+
     private fun initializeImmersiveExperience() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

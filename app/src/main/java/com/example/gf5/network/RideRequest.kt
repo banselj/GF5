@@ -1,4 +1,5 @@
 package com.example.gf5.network
+
 data class RideRequest(
     val id: String,
     val riderId: String,

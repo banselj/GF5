@@ -28,6 +28,7 @@ import com.example.gf5.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 

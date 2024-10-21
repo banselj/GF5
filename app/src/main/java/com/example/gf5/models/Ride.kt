@@ -13,6 +13,7 @@ import com.google.firebase.firestore.PropertyName
  * @property status The current status of the ride (e.g., Pending, InProgress, Completed).
  * @property timestamp The time when the ride was requested.
  */
+
 data class Ride(
     @PropertyName("id")
     val id: String = "",

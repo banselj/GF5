@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+
     <TextView
         android:id="@+id/pickupLocationTextView"
         android:layout_width="0dp"

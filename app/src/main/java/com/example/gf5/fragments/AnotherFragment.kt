@@ -18,6 +18,7 @@ class AnotherFragment : Fragment() {
     private var _binding: FragmentAnotherBinding? = null
     private val binding get() = _binding!!
 
+
     /**
      * Called to have the fragment instantiate its user interface view.
      *

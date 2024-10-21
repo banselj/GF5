@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.RideRequestActivity">
 
+
     <!-- Google Map Fragment -->
     <fragment
         android:id="@+id/map"

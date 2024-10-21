@@ -21,6 +21,7 @@ class KYCVerificationActivity : AppCompatActivity() {
     private val kycViewModel: KYCViewModel by viewModels()
     private var documentUri: Uri? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityKycVerificationBinding.inflate(layoutInflater)

@@ -13,6 +13,7 @@ import com.example.gf5.databinding.ActivityLoginBinding
 import com.example.gf5.viewmodels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 

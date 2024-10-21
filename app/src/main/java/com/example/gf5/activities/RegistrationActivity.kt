@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 /**
  * Activity responsible for user registration and KYC (Know Your Customer) verification.
  */
+
 @AndroidEntryPoint
 class RegistrationActivity : AppCompatActivity() {
 

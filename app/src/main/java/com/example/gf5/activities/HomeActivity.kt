@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.example.gf5.R
 import com.example.gf5.databinding.ActivityHomeBinding
 
+
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding

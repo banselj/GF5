@@ -1,5 +1,6 @@
 package com.example.gf5.repositories
 
+
 import com.example.gf5.network.AdService
 import com.example.gf5.models.Ad
 import javax.inject.Inject

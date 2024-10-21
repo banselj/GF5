@@ -11,6 +11,7 @@ import com.example.gf5.databinding.ActivitySubscriptionBinding
 import com.example.gf5.viewmodels.SubscriptionViewModel
 import kotlinx.coroutines.launch
 
+
 class SubscriptionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySubscriptionBinding
