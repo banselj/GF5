@@ -79,7 +79,11 @@ data class RideResponse(
     val destinationLocation: String,
     val driverId: String? // Nullable, as a driver might not be assigned yet
     // Add any other relevant fields
-)
+) {
+    fun toRideDetails(): Nothing {
+
+    }
+}
 
 /**
  * Represents detailed information about a ride.
@@ -112,6 +116,8 @@ data class SdkTokenResponse(
  * API Service interface defining all network endpoints.
  */
 interface ApiService {
+
+
 
     /**
      * Logs in a user with the provided email and password.
@@ -178,4 +184,11 @@ interface ApiService {
      */
     @GET("onfido/sdk-token")
     suspend fun getOnfidoSdkToken(): Response<SdkTokenResponse>
+
+    @GET("endpoint")
+    suspend fun fetchData(): Response<YourDataModel>
+
+    @POST("endpoint")
+    suspend fun sendData(@Body data: YourRequestModel): Response<YourResponseModel>
+}
 }

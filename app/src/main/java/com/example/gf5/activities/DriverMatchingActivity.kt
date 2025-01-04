@@ -1,12 +1,15 @@
 package com.example.gf5.activities
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.gf5.R
 import com.example.gf5.databinding.ActivityDriverMatchingBinding
@@ -53,8 +56,25 @@ class DriverMatchingActivity : ComponentActivity() {
             Log.d("DriverMatchingActivity", "Map is ready")
             // Initialize your map here
             // Example:
-            // googleMap.isMyLocationEnabled = true
-            // googleMap.uiSettings.isZoomControlsEnabled = true
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return@getMapAsync
+            }
+            googleMap.isMyLocationEnabled = true
+             googleMap.uiSettings.isZoomControlsEnabled = true
         }
 
         // Setup Cancel button

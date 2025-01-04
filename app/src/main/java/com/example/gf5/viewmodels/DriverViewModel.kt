@@ -1,12 +1,13 @@
 package com.example.gf5.viewmodels
 
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gf5.models.Driver
 import com.example.gf5.models.DriverStatus
 import com.example.gf5.models.RideDetails
-import com.example.gf5.repositories.DriverRepository
+import com.example.gf5.repository.DriverRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,123 +31,103 @@ class DriverViewModel @Inject constructor(
     private val _statusUpdateSuccess = MutableStateFlow<Boolean>(false)
     val statusUpdateSuccess: StateFlow<Boolean> = _statusUpdateSuccess
 
-    /**
-     * Cancels the current search for a ride.
-     */
+    private val _error = MutableStateFlow<String?>(null)
+    val error: StateFlow<String?> = _error
+
     fun cancelSearch() {
-        // Implement the logic to cancel the search.
-        // This might involve updating the driver's status to IDLE or OFFLINE.
         viewModelScope.launch {
             try {
-                // Assuming the repository has a method to cancel search, e.g., updateDriverStatus
-                // Here, setting status to IDLE as an example
                 val currentDriverId = getCurrentDriverId()
                 val success = repository.updateDriverStatus(currentDriverId, DriverStatus.IDLE)
                 _statusUpdateSuccess.value = success
                 if (success) {
-                    // Optionally, clear ride details
                     _rideDetails.value = null
+                    Log.d(TAG, "Search canceled successfully")
+                } else {
+                    _error.value = "Failed to cancel search"
+                    Log.e(TAG, "Failed to cancel search")
                 }
             } catch (e: Exception) {
-                // Handle or log the exception as needed
-                _statusUpdateSuccess.value = false
+                _error.value = "Error canceling search: ${e.localizedMessage}"
+                Log.e(TAG, "Error canceling search", e)
             }
         }
     }
 
-    /**
-     * Loads the list of available drivers.
-     */
     fun loadAvailableDrivers() {
         viewModelScope.launch {
             try {
                 val drivers = repository.getAvailableDrivers()
                 _availableDrivers.value = drivers
+                Log.d(TAG, "Loaded ${drivers.size} available drivers")
             } catch (e: Exception) {
-                // Handle or log the exception as needed
+                _error.value = "Failed to load available drivers: ${e.localizedMessage}"
+                Log.e(TAG, "Error loading available drivers", e)
             }
         }
     }
 
-    /**
-     * Loads the details of a specific driver.
-     *
-     * @param driverId The unique identifier of the driver.
-     */
     fun loadDriverDetails(driverId: String) {
         viewModelScope.launch {
             try {
                 val driver = repository.getDriverDetails(driverId)
                 _driverDetails.value = driver
+                Log.d(TAG, "Loaded details for driver: $driverId")
             } catch (e: Exception) {
-                // Handle or log the exception as needed
+                _error.value = "Failed to load driver details: ${e.localizedMessage}"
+                Log.e(TAG, "Error loading driver details", e)
             }
         }
     }
 
-    /**
-     * Updates the driver's status.
-     *
-     * @param driverId The unique identifier of the driver.
-     * @param newStatus The new status to set for the driver.
-     */
     fun updateDriverStatus(driverId: String, newStatus: DriverStatus) {
         viewModelScope.launch {
             try {
                 val success = repository.updateDriverStatus(driverId, newStatus)
                 _statusUpdateSuccess.value = success
+                if (success) {
+                    Log.d(TAG, "Driver status updated to $newStatus")
+                } else {
+                    _error.value = "Failed to update driver status"
+                    Log.e(TAG, "Failed to update driver status")
+                }
             } catch (e: Exception) {
-                _statusUpdateSuccess.value = false
-                // Handle or log the exception as needed
+                _error.value = "Error updating driver status: ${e.localizedMessage}"
+                Log.e(TAG, "Error updating driver status", e)
             }
         }
     }
 
-    /**
-     * Loads the next ride assigned to the driver.
-     *
-     * @param driverId The unique identifier of the driver.
-     */
     fun loadNextRide(driverId: String) {
         viewModelScope.launch {
             try {
                 val ride = repository.getNextRide(driverId)
                 _rideDetails.value = ride
+                Log.d(TAG, "Loaded next ride for driver: $driverId")
             } catch (e: Exception) {
-                // Handle or log the exception as needed
+                _error.value = "Failed to load next ride: ${e.localizedMessage}"
+                Log.e(TAG, "Error loading next ride", e)
             }
         }
     }
 
-    /**
-     * Logs out the current driver.
-     */
     fun onLogout() {
-        // Implement logout logic, such as clearing user data and navigating to login
-        // This might involve interacting with FirebaseAuth or other authentication services
         viewModelScope.launch {
             try {
-                // Example: Clear user session
-                // Assuming repository handles logout
                 repository.logoutDriver()
-                // Optionally, navigate to login screen
+                Log.d(TAG, "Driver logged out successfully")
             } catch (e: Exception) {
-                // Handle or log the exception as needed
+                _error.value = "Error logging out: ${e.localizedMessage}"
+                Log.e(TAG, "Error logging out", e)
             }
         }
     }
 
-    /**
-     * Retrieves the current authenticated driver's ID.
-     *
-     * @return The driver's unique identifier.
-     * @throws IllegalStateException If no driver is currently authenticated.
-     */
     private fun getCurrentDriverId(): String {
-        // Implement the logic to get current driver ID.
-        // This might involve interacting with FirebaseAuth or other authentication services.
-        // For example:
-        // return auth.currentUser?.uid ?: throw IllegalStateException("No authenticated driver found.")
         return "current_driver_id" // Replace with actual implementation
+    }
+
+    companion object {
+        private const val TAG = "DriverViewModel"
     }
 }

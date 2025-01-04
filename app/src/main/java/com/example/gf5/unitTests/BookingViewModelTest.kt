@@ -1,4 +1,4 @@
-package com.example.gf5.tests
+package com.example.gf5.unitTests
 
 @RunWith(MockitoJUnitRunner::class)
 class BookingViewModelTest {

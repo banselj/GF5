@@ -1,40 +1,47 @@
-package com.example.gf5.activities
-
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.text.Layout
 import android.util.Log
+import android.view.Surface
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import com.example.gf5.GF5Theme
 import com.example.gf5.R
+import com.example.gf5.activities.DriverHomeActivity
+import com.example.gf5.activities.LoginActivity
+import com.example.gf5.activities.RegistrationActivity
+import com.example.gf5.activities.RiderHomeActivity
+import com.example.gf5.ui.theme.GF5Theme
 import com.example.gf5.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-
+import java.lang.reflect.Modifier
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val mainViewModel: MainViewModel by viewModels()
-
-
+    private val mainViewModel: MainViewModel<Any?> by viewModels()
 
     // Permissions required
     private val requiredPermissions = arrayOf(
@@ -47,24 +54,12 @@ class MainActivity : ComponentActivity() {
     private val requestPermissionsLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
-        var allGranted = true
-        permissions.entries.forEach {
-            if (!it.value) {
-                allGranted = false
-                Log.e(TAG, "Permission denied: ${it.key}")
-                Toast.makeText(this, "Permission ${it.key} denied", Toast.LENGTH_SHORT).show()
-            }
-        }
+        val allGranted = permissions.entries.all { it.value }
         if (allGranted) {
             Log.d(TAG, "All permissions granted")
-            // Initialize services or proceed with functionality that requires permissions
             mainViewModel.determineNavigation(this)
         } else {
-            Toast.makeText(
-                this,
-                "Required permissions are not granted. The app may not function correctly.",
-                Toast.LENGTH_LONG
-            ).show()
+            showError("Required permissions are not granted. The app may not function correctly.")
         }
     }
 
@@ -98,59 +93,63 @@ class MainActivity : ComponentActivity() {
         var isVisible by rememberSaveable { mutableStateOf(false) }
 
         LaunchedEffect(Unit) {
-            Log.d(TAG, "LaunchedEffect triggered, delaying for 500ms")
             delay(500) // Delay for animation synchronization
             isVisible = true
-            Log.d(TAG, "Animation visibility set to true")
         }
 
         Box(modifier = Modifier.padding(16.dp)) {
             AnimatedVisibility(visible = isVisible) {
-                Log.d(TAG, "AnimatedVisibility is now visible")
-                Text(
-                    text = stringResource(id = R.string.welcome_message),
-                    style = MaterialTheme.typography.headlineMedium
-                )
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Layout.Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.welcome_message),
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+                    if (!hasAllPermissions()) {
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Button(onClick = { requestPermissions() }) {
+                            Text(text = "Grant Permissions")
+                        }
+                    }
+                }
             }
         }
     }
 
     private fun observeNavigationEvents() {
         mainViewModel.navigationEvent.observe(this) { event ->
-            Log.d(TAG, "Navigation event observed: $event")
             handleNavigationEvent(event)
         }
     }
 
-    private fun handleNavigationEvent(event: MainViewModel.NavigationEvent) {
-        Log.d(TAG, "Handling navigation event: $event")
+    private fun handleNavigationEvent(event: MainViewModel<Any?>.NavigationEvent) {
         when (event) {
-            is MainViewModel.NavigationEvent.NavigateToRegistration -> {
+            is MainViewModel<Any?>.NavigationEvent.NavigateToRegistration -> {
                 navigateToActivity(RegistrationActivity::class.java)
             }
-            is MainViewModel.NavigationEvent.NavigateToLogin -> {
+            is MainViewModel<Any?>.NavigationEvent.NavigateToLogin -> {
                 navigateToActivity(LoginActivity::class.java)
             }
-            is MainViewModel.NavigationEvent.NavigateToDriverHome -> {
+            is MainViewModel<Any?>.NavigationEvent.NavigateToDriverHome -> {
                 navigateToActivity(DriverHomeActivity::class.java)
             }
-            is MainViewModel.NavigationEvent.NavigateToRiderHome -> {
+            is MainViewModel<Any?>.NavigationEvent.NavigateToRiderHome -> {
                 navigateToActivity(RiderHomeActivity::class.java)
             }
-            is MainViewModel.NavigationEvent.ShowError -> {
+            is MainViewModel<Any?>.NavigationEvent.ShowError -> {
                 showError(event.message)
             }
         }
     }
 
     private fun navigateToActivity(activityClass: Class<*>) {
-        Log.d(TAG, "Starting activity: ${activityClass.simpleName}")
         startActivity(Intent(this, activityClass))
         finish()
     }
 
     private fun showError(message: String) {
-        Log.e(TAG, "Error: $message")
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 

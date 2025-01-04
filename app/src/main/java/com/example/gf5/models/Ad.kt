@@ -12,8 +12,10 @@ data class Ad private constructor(
     val id: String,
     val campaignName: String,
     val advertiserName: String,
-    val status: AdStatus
+    val status: Any
 ) {
+    val description: CharSequence? = null
+
     companion object {
         /**
          * Factory method to create an instance of [Ad] with validation.
@@ -21,7 +23,7 @@ data class Ad private constructor(
          * @throws IllegalArgumentException if any validation fails.
          */
 
-        fun create(
+        fun <AdStatus : Any> create(
             id: String,
             campaignName: String,
             advertiserName: String,

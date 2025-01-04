@@ -1,4 +1,18 @@
-package com.example.gf5.tests
+package com.example.gf5.unitTests
+
+import com.example.gf5.network.ApiService
+import com.example.gf5.network.LoginRequest
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertNotNull
+import junit.framework.TestCase.assertTrue
+import kotlinx.coroutines.runBlocking
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 @RunWith(JUnit4::class)
 class ApiServiceTest {

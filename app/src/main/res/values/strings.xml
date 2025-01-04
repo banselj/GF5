@@ -3,6 +3,7 @@
 
     <!-- App Name -->
     <string name="app_name">GratisFare</string>
+    <string name="gratisfare">Gratis Fare</string>
 
 
     <!-- Authentication -->

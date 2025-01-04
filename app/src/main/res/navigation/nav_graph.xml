@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/loginFragment"> <!-- Start with LoginFragment -->
+
+    <!-- LoginFragment Definition -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.gf5.ui.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login" > <!-- Preview layout in Android Studio -->
+
+        <!-- Action to navigate from LoginFragment to HomeFragment -->
+        <action
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <!-- HomeFragment Definition -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.gf5.ui.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" /> <!-- Preview layout in Android Studio -->
+</navigation>

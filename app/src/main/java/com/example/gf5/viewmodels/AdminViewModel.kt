@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.gf5.models.Ad
 import com.example.gf5.models.Ride
 import com.example.gf5.models.User
-import com.example.gf5.repositories.UserRepository
-import com.example.gf5.repositories.RideRepository
-import com.example.gf5.repositories.AdRepository
+import com.example.gf5.repository.UserRepository
+import com.example.gf5.repository.RideRepository
+import com.example.gf5.repository.AdRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

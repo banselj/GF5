@@ -1,5 +1,6 @@
 package com.example.gf5.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -48,6 +49,10 @@ class AdminPanelActivity : AppCompatActivity() {
         binding.logoutButton.setOnClickListener {
             handleLogout()
         }
+    }
+
+    private fun setContentView(root: Any) {
+
     }
 
     /**
@@ -157,9 +162,10 @@ class AdminPanelActivity : AppCompatActivity() {
      * @param user The user selected from the RecyclerView.
      */
     private fun showUserOptions(user: User) {
-        // Implement options like view details, suspend user, etc.
-        // For example:
-        Toast.makeText(this, "Selected user: ${user.name}", Toast.LENGTH_SHORT).show()
+        // Navigate to UserDetailActivity
+        val intent = Intent(this, UserDetailActivity::class.java)
+        intent.putExtra("USER_ID", user.id)
+        startActivity(intent)
     }
 
     /**

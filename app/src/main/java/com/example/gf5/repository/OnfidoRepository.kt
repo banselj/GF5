@@ -1,5 +1,5 @@
 
-package com.example.gf5.repositories
+package com.example.gf5.repository
 
 import javax.inject.Inject
 

@@ -22,7 +22,7 @@ class RideAdapter(
         fun bind(ride: Ride) {
             binding.rideIdTextView.text = ride.id
             binding.pickupTextView.text = ride.pickupLocation
-            binding.dropoffTextView.text = ride.dropoffLocation
+            binding.dropoffTextView.text = ride.destinationLocation
             binding.statusTextView.text = ride.status
             binding.root.setOnClickListener {
                 onRideClick(ride)

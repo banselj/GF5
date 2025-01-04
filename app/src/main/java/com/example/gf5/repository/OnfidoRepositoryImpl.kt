@@ -1,4 +1,4 @@
-package com.example.gf5.repositories
+package com.example.gf5.repository
 
 import com.example.gf5.network.ApiService
 import javax.inject.Inject

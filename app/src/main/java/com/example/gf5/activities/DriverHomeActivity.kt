@@ -12,6 +12,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.ColumnScopeInstance.weight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.*
@@ -20,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.gf5.R
@@ -33,6 +35,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.google.firebase.auth.FirebaseAuth
+import kotlin.reflect.KProperty
 
 @AndroidEntryPoint
 class DriverHomeActivity : ComponentActivity() {
@@ -193,6 +196,7 @@ class DriverHomeActivity : ComponentActivity() {
     private fun handleLogout() {
         // Update driver status to OFFLINE before logging out
         driverStatusViewModel.setStatus(DriverStatus.OFFLINE)
+        stopService(Intent(this, DriverLocationService::class.java))
 
         auth.signOut()
         val intent = Intent(this, LoginActivity::class.java).apply {
@@ -209,6 +213,14 @@ class DriverHomeActivity : ComponentActivity() {
         val intent = Intent(this, DriverLocationService::class.java)
         ContextCompat.startForegroundService(this, intent)
     }
+}
+
+private operator fun Any.getValue(nothing: Nothing?, property: KProperty<*>): Any {
+
+}
+
+private fun <T> LiveData<T>.collectAsStateWithLifecycle(): Any {
+
 }
 
 /**

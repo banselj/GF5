@@ -3,7 +3,7 @@ package com.example.gf5.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gf5.repositories.RideRepository
+import com.example.gf5.repository.RideRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
