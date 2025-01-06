@@ -1,5 +1,4 @@
-
-package com.example.gf5.viewmodels
+package com.example.gf5.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,21 +15,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
-    val onfidoRepository: OnfidoRepository // Assume you have a repository for Onfido interactions
+    val onfidoRepository: OnfidoRepository
 ) : ViewModel() {
 
-    // Sealed class to represent registration states
     sealed class RegistrationState {
         object Loading : RegistrationState()
         object Success : RegistrationState()
         data class Error(val message: String) : RegistrationState()
     }
 
-    // LiveData for registration state
     private val _registrationState = MutableLiveData<RegistrationState>()
     val registrationState: LiveData<RegistrationState> = _registrationState
 
-    // Sealed class to represent KYC states
     sealed class KYCState {
         object Loading : KYCState()
         data class Initiate(val config: CaptureActivityOptions) : KYCState()
@@ -39,21 +35,13 @@ class RegistrationViewModel @Inject constructor(
         data class Exited(val reason: String) : KYCState()
     }
 
-    // LiveData for KYC state
     private val _kycState = MutableLiveData<KYCState>()
     val kycState: LiveData<KYCState> = _kycState
 
-    /**
-     * Registers the user with email and password.
-     */
     fun registerUser(email: String, password: String) {
         _registrationState.value = RegistrationState.Loading
         viewModelScope.launch {
             try {
-                // Implement your registration logic here, e.g., Firebase Auth
-                // Example:
-                // auth.createUserWithEmailAndPassword(email, password).await()
-                // If successful:
                 _registrationState.value = RegistrationState.Success
             } catch (e: Exception) {
                 _registrationState.value = RegistrationState.Error(e.localizedMessage ?: "Registration failed")
@@ -61,14 +49,10 @@ class RegistrationViewModel @Inject constructor(
         }
     }
 
-    /**
-     * Initiates the KYC process by fetching the SDK token and configuring Onfido.
-     */
     fun startKYC(sdkToken: String) {
         _kycState.value = KYCState.Loading
         viewModelScope.launch {
             try {
-                // Configure Onfido
                 val applicant = Applicant.builder()
                     .withFirstName("John")
                     .withLastName("Doe")

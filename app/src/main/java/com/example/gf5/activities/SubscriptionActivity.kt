@@ -8,7 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.gf5.databinding.ActivitySubscriptionBinding
-import com.example.gf5.viewmodels.SubscriptionViewModel
+import com.example.gf5.viewModels.SubscriptionViewModel
 import kotlinx.coroutines.launch
 
 

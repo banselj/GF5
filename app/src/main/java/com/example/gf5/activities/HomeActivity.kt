@@ -2,10 +2,13 @@ package com.example.gf5.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.gf5.R
 import com.example.gf5.databinding.ActivityHomeBinding
 import com.example.gf5.fragments.NotificationsFragment
-
+import com.example.gf5.fragments.ProfileFragment
+import com.example.gf5.fragments.RideBookingFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
@@ -19,12 +22,10 @@ class HomeActivity : AppCompatActivity() {
         setupNavigation()
     }
 
-    private fun setContentView(root: Any) {
-
-    }
-
     private fun setupNavigation() {
-        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
+        val bottomNavigationView: BottomNavigationView = binding.bottomNavigation
+
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_ride -> {
                     openFragment(RideBookingFragment())
@@ -41,20 +42,12 @@ class HomeActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
         // Set default selected item
-        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_ride -> openFragment(RideBookingFragment())
-                R.id.nav_profile -> openFragment(ProfileFragment())
-                R.id.nav_notifications -> openFragment(NotificationsFragment())
-                else -> false
-            }
-        }
+        bottomNavigationView.selectedItemId = R.id.nav_ride
     }
 
-
-
-    private fun openFragment(fragment: NotificationsFragment) {
+    private fun openFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()

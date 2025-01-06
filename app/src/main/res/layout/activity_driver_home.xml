@@ -4,10 +4,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.gf5.viewmodels.RideAssignmentViewModel" />
+            type="com.example.gf5.viewModels.RideAssignmentViewModel" />
         <variable
             name="statusViewModel"
-            type="com.example.gf5.viewmodels.DriverStatusViewModel" />
+            type="com.example.gf5.viewModels.DriverStatusViewModel" />
     </data>
 
 

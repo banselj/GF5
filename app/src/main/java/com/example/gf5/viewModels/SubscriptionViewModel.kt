@@ -1,4 +1,4 @@
-package com.example.gf5.viewmodels
+package com.example.gf5.viewModels
 
 class SubscriptionViewModel {
     class SubscriptionResult {

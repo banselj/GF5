@@ -15,7 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.gf5.R
 import com.example.gf5.databinding.ActivityRideBookingBinding
-import com.example.gf5.viewmodels.BookingViewModel
+import com.example.gf5.viewModels.BookingViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback

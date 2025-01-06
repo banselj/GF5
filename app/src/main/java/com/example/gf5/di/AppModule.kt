@@ -1,4 +1,3 @@
-// File: com/example/gf5/di/AppModule.kt
 package com.example.gf5.di
 
 import android.content.Context
@@ -33,7 +32,6 @@ object AppModule {
     @Singleton
     fun provideFusedLocationProviderClient(context: Context): FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
-
 
     // Provide ApiService
     @Provides

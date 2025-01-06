@@ -1,5 +1,4 @@
-package com.example.gf5.viewmodels
-
+package com.example.gf5.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,32 +13,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-/**
- * ViewModel responsible for handling user authentication.
- */
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val auth: FirebaseAuth
 ) : ViewModel() {
 
     private val _authState = MutableStateFlow<AuthState>(AuthState.Empty)
-    /**
-     * Represents the current state of authentication.
-     */
     val authState: StateFlow<AuthState> = _authState
 
     private val _navigationEvent = MutableSharedFlow<NavigationEvent>()
-    /**
-     * Represents one-time navigation events.
-     */
     val navigationEvent: SharedFlow<NavigationEvent> = _navigationEvent
 
-    /**
-     * Logs in a user with the provided [email] and [password].
-     *
-     * @param email The user's email address.
-     * @param password The user's password.
-     */
     fun loginUser(email: String, password: String) {
         viewModelScope.launch {
             if (!isValidEmail(email)) {
@@ -66,20 +50,11 @@ class AuthViewModel @Inject constructor(
                     _authState.value = AuthState.Error("Authentication failed. Please try again.")
                 }
             } catch (e: Exception) {
-                // Log the exception internally (e.g., using Timber or Log.e)
-                // Timber.e(e, "Login failed")
-                _authState.value =
-                    AuthState.Error("Login failed. Please check your credentials and try again.")
+                _authState.value = AuthState.Error("Login failed. Please check your credentials and try again.")
             }
         }
     }
 
-    /**
-     * Registers a new user with the provided [email] and [password].
-     *
-     * @param email The user's email address.
-     * @param password The user's password.
-     */
     fun registerUser(email: String, password: String) {
         viewModelScope.launch {
             if (!isValidEmail(email)) {
@@ -99,17 +74,11 @@ class AuthViewModel @Inject constructor(
                 _authState.value = AuthState.Success(user)
                 _navigationEvent.emit(NavigationEvent.ShowMessage("Registration successful. Verification email sent."))
             } catch (e: Exception) {
-                // Log the exception internally (e.g., using Timber or Log.e)
-                // Timber.e(e, "Registration failed")
-                _authState.value =
-                    AuthState.Error("Registration failed. Please try again with a different email.")
+                _authState.value = AuthState.Error("Registration failed. Please try again with a different email.")
             }
         }
     }
 
-    /**
-     * Logs out the current user.
-     */
     fun logout() {
         viewModelScope.launch {
             auth.signOut()
@@ -118,11 +87,6 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    /**
-     * Initiates a password reset for the given [email].
-     *
-     * @param email The user's email address.
-     */
     fun resetPassword(email: String) {
         viewModelScope.launch {
             if (!isValidEmail(email)) {
@@ -136,37 +100,19 @@ class AuthViewModel @Inject constructor(
                 _authState.value = AuthState.PasswordResetEmailSent
                 _navigationEvent.emit(NavigationEvent.ShowMessage("Password reset email sent."))
             } catch (e: Exception) {
-                // Log the exception internally (e.g., using Timber or Log.e)
-                // Timber.e(e, "Password reset failed")
-                _authState.value =
-                    AuthState.Error("Failed to send password reset email. Please try again.")
+                _authState.value = AuthState.Error("Failed to send password reset email. Please try again.")
             }
         }
     }
 
-    /**
-     * Validates the provided [email].
-     *
-     * @param email The email address to validate.
-     * @return `true` if the email is valid, `false` otherwise.
-     */
     private fun isValidEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    /**
-     * Validates the provided [password].
-     *
-     * @param password The password to validate.
-     * @return `true` if the password meets the criteria, `false` otherwise.
-     */
     private fun isValidPassword(password: String): Boolean {
         return password.length >= 6
     }
 
-    /**
-     * Represents the various states of authentication.
-     */
     sealed class AuthState {
         object Loading : AuthState()
         data class Success(val user: FirebaseUser?) : AuthState()
@@ -175,9 +121,6 @@ class AuthViewModel @Inject constructor(
         object PasswordResetEmailSent : AuthState()
     }
 
-    /**
-     * Represents navigation or UI events that should be handled once.
-     */
     sealed class NavigationEvent {
         object NavigateToHome : NavigationEvent()
         object NavigateToLogin : NavigationEvent()

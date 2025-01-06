@@ -191,4 +191,3 @@ interface ApiService {
     @POST("endpoint")
     suspend fun sendData(@Body data: YourRequestModel): Response<YourResponseModel>
 }
-}

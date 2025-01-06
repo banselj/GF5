@@ -1,6 +1,5 @@
 package com.example.gf5.activities
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,8 +11,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.gf5.databinding.ActivityKycVerificationBinding
-import com.example.gf5.viewmodels.KYCViewModel
-import com.example.gf5.viewmodels.KYCResult
+import com.example.gf5.viewModels.KYCViewModel
+import com.example.gf5.viewModels.KYCResult
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -41,7 +40,6 @@ class KYCVerificationActivity : AppCompatActivity() {
 
         observeKYCStatus()
 
-        // Initialize document picker launcher
         documentPickerLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
             if (uri != null) {
                 documentUri = uri

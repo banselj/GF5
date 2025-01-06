@@ -84,6 +84,9 @@
 
     <!-- Additional Strings -->
     <string name="GratisFare">GratisFare</string>
+    <string name="notifications">Notifications</string>
+    <string name="profile">Profile</string>
+    <string name="ride">Ride</string>
     <!-- Removed redundant or duplicate entries -->
 
     <!-- Add other strings here as needed -->

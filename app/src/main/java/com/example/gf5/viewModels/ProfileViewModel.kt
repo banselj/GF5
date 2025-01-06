@@ -1,5 +1,5 @@
 
-package com.example.gf5.viewmodels
+package com.example.gf5.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,15 +1,14 @@
-
 package com.example.gf5.repository
 
+import com.example.gf5.network.ApiService
 import javax.inject.Inject
 
-class OnfidoRepository @Inject constructor(
-    private val apiService: ApiService // Retrofit API service
+open class OnfidoRepository @Inject constructor(
+    private val apiService: ApiService
 ) {
-    /**
-     * Fetches the Onfido SDK token from the backend.
-     */
-    suspend fun fetchSdkToken(): String {
+    constructor() : this()
+
+    open suspend fun fetchSdkToken(): String {
         val response = apiService.getOnfidoSdkToken()
         if (response.isSuccessful && response.body() != null) {
             return response.body()!!.token

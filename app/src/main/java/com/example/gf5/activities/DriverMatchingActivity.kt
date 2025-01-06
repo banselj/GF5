@@ -14,34 +14,35 @@ import androidx.lifecycle.lifecycleScope
 import com.example.gf5.R
 import com.example.gf5.databinding.ActivityDriverMatchingBinding
 import com.example.gf5.services.DriverTrackingService
-import com.example.gf5.viewmodels.DriverStatusViewModel
-import com.example.gf5.viewmodels.DriverViewModel
+import com.example.gf5.viewModels.DriverStatusViewModel
+import com.example.gf5.viewModels.DriverViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-
-/**
- * Activity responsible for matching drivers with ride requests.
- * Displays a map and allows drivers to cancel their search.
- */
 
 @AndroidEntryPoint
 class DriverMatchingActivity : ComponentActivity() {
 
     private lateinit var binding: ActivityDriverMatchingBinding
 
-    // Inject the DriverViewModel using Hilt
     private val driverViewModel: DriverViewModel by viewModels()
-
-    // Inject the DriverStatusViewModel using Hilt
     private val driverStatusViewModel: DriverStatusViewModel by viewModels()
 
-    // Activity Result Launcher for handling potential future activity results
-    private val someResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        Log.d("DriverMatchingActivity", "Received activity result: $result")
-        // Handle results if necessary
+    private val locationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val fineLocationGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
+        val coarseLocationGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
+
+        if (fineLocationGranted && coarseLocationGranted) {
+            initializeMap()
+        } else {
+            Toast.makeText(
+                this,
+                getString(R.string.location_permissions_required),
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,12 +51,46 @@ class DriverMatchingActivity : ComponentActivity() {
         binding = ActivityDriverMatchingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize MapView
+        // Initialize the MapView with the savedInstanceState
         binding.mapView.onCreate(savedInstanceState)
+
+        checkLocationPermissions()
+
+        binding.cancelButton.setOnClickListener {
+            Log.d("DriverMatchingActivity", "Cancel button clicked")
+            handleCancel()
+        }
+
+        observeRideDetails()
+        observeDriverStatus()
+    }
+
+    private fun checkLocationPermissions() {
+        val fineLocation = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+
+        val coarseLocation = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (fineLocation && coarseLocation) {
+            initializeMap()
+        } else {
+            locationPermissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+        }
+    }
+
+    private fun initializeMap() {
         binding.mapView.getMapAsync { googleMap ->
             Log.d("DriverMatchingActivity", "Map is ready")
-            // Initialize your map here
-            // Example:
             if (ActivityCompat.checkSelfPermission(
                     this,
                     Manifest.permission.ACCESS_FINE_LOCATION
@@ -64,35 +99,13 @@ class DriverMatchingActivity : ComponentActivity() {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return@getMapAsync
             }
             googleMap.isMyLocationEnabled = true
-             googleMap.uiSettings.isZoomControlsEnabled = true
+            googleMap.uiSettings.isZoomControlsEnabled = true
         }
-
-        // Setup Cancel button
-        binding.cancelButton.setOnClickListener {
-            Log.d("DriverMatchingActivity", "Cancel button clicked")
-            handleCancel()
-        }
-
-        // Observe Ride Details from DriverViewModel
-        observeRideDetails()
-
-        // Observe Driver Status from DriverStatusViewModel
-        observeDriverStatus()
     }
 
-    /**
-     * Observes the [DriverViewModel.rideDetails] to respond to ride assignments.
-     */
     private fun observeRideDetails() {
         Log.d("DriverMatchingActivity", "Observing ride details")
         lifecycleScope.launch {
@@ -111,9 +124,6 @@ class DriverMatchingActivity : ComponentActivity() {
         }
     }
 
-    /**
-     * Observes the [DriverStatusViewModel.driverStatusState] to respond to status changes.
-     */
     private fun observeDriverStatus() {
         Log.d("DriverMatchingActivity", "Observing driver status")
         lifecycleScope.launch {
@@ -122,11 +132,9 @@ class DriverMatchingActivity : ComponentActivity() {
                 when (statusState) {
                     is DriverStatusViewModel.DriverStatusState.Loading -> {
                         Log.d("DriverMatchingActivity", "DriverStatusState: Loading")
-                        // Show loading indicator if implemented
                     }
                     is DriverStatusViewModel.DriverStatusState.Success -> {
                         Log.d("DriverMatchingActivity", "DriverStatusState: Success - ${statusState.updatedStatus}")
-                        // Handle successful status update
                     }
                     is DriverStatusViewModel.DriverStatusState.Error -> {
                         Log.e("DriverMatchingActivity", "DriverStatusState: Error - ${statusState.message}")
@@ -138,17 +146,12 @@ class DriverMatchingActivity : ComponentActivity() {
                     }
                     is DriverStatusViewModel.DriverStatusState.Idle -> {
                         Log.d("DriverMatchingActivity", "DriverStatusState: Idle")
-                        // Handle idle state if necessary
                     }
                 }
             }
         }
     }
 
-    /**
-     * Handles the cancellation of the ride search.
-     * Stops the [DriverTrackingService] and updates the [ViewModel].
-     */
     private fun handleCancel() {
         Log.d("DriverMatchingActivity", "Cancelling ride search")
         driverViewModel.cancelSearch()
@@ -157,9 +160,6 @@ class DriverMatchingActivity : ComponentActivity() {
         navigateToLogin()
     }
 
-    /**
-     * Navigates the user to the [DriverHomeActivity].
-     */
     private fun navigateToDriverHome() {
         Log.d("DriverMatchingActivity", "Navigating to DriverHomeActivity")
         val intent = Intent(this, DriverHomeActivity::class.java).apply {
@@ -169,9 +169,6 @@ class DriverMatchingActivity : ComponentActivity() {
         finish()
     }
 
-    /**
-     * Navigates the user to the [LoginActivity].
-     */
     private fun navigateToLogin() {
         Log.d("DriverMatchingActivity", "Navigating to LoginActivity")
         val intent = Intent(this, LoginActivity::class.java).apply {
@@ -209,6 +206,11 @@ class DriverMatchingActivity : ComponentActivity() {
         super.onDestroy()
         Log.d("DriverMatchingActivity", "onDestroy called")
         binding.mapView.onDestroy()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        binding.mapView.onSaveInstanceState(outState)
     }
 
     override fun onLowMemory() {

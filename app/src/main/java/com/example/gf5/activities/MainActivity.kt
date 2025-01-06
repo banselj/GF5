@@ -1,10 +1,10 @@
+package com.example.gf5.activities
+
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.text.Layout
 import android.util.Log
-import android.view.Surface
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,8 +15,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,24 +28,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.example.gf5.R
-import com.example.gf5.activities.DriverHomeActivity
-import com.example.gf5.activities.LoginActivity
-import com.example.gf5.activities.RegistrationActivity
-import com.example.gf5.activities.RiderHomeActivity
 import com.example.gf5.ui.theme.GF5Theme
-import com.example.gf5.viewmodels.MainViewModel
+import com.example.gf5.viewModels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-import java.lang.reflect.Modifier
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val mainViewModel: MainViewModel<Any?> by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
 
     // Permissions required
     private val requiredPermissions = arrayOf(
@@ -101,7 +103,7 @@ class MainActivity : ComponentActivity() {
             AnimatedVisibility(visible = isVisible) {
                 Column(
                     verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Layout.Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
                         text = stringResource(id = R.string.welcome_message),
@@ -119,26 +121,26 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun observeNavigationEvents() {
-        mainViewModel.navigationEvent.observe(this) { event ->
+        mainViewModel.navigationEvent.observe(this, Observer { event ->
             handleNavigationEvent(event)
-        }
+        })
     }
 
-    private fun handleNavigationEvent(event: MainViewModel<Any?>.NavigationEvent) {
+    private fun handleNavigationEvent(event: MainViewModel.NavigationEvent) {
         when (event) {
-            is MainViewModel<Any?>.NavigationEvent.NavigateToRegistration -> {
+            is MainViewModel.NavigationEvent.NavigateToRegistration -> {
                 navigateToActivity(RegistrationActivity::class.java)
             }
-            is MainViewModel<Any?>.NavigationEvent.NavigateToLogin -> {
+            is MainViewModel.NavigationEvent.NavigateToLogin -> {
                 navigateToActivity(LoginActivity::class.java)
             }
-            is MainViewModel<Any?>.NavigationEvent.NavigateToDriverHome -> {
+            is MainViewModel.NavigationEvent.NavigateToDriverHome -> {
                 navigateToActivity(DriverHomeActivity::class.java)
             }
-            is MainViewModel<Any?>.NavigationEvent.NavigateToRiderHome -> {
+            is MainViewModel.NavigationEvent.NavigateToRiderHome -> {
                 navigateToActivity(RiderHomeActivity::class.java)
             }
-            is MainViewModel<Any?>.NavigationEvent.ShowError -> {
+            is MainViewModel.NavigationEvent.ShowError -> {
                 showError(event.message)
             }
         }

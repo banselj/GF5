@@ -1,5 +1,4 @@
-package com.example.gf5.viewmodels
-
+package com.example.gf5.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

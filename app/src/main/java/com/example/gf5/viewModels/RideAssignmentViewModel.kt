@@ -1,16 +1,14 @@
+package com.example.gf5.viewModels
 
-package com.example.gf5.viewmodels
-
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gf5.models.Ride
 import com.example.gf5.network.ApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 /**
  * ViewModel responsible for handling ride assignments.
@@ -20,13 +18,13 @@ class RideAssignmentViewModel @Inject constructor(
     private val apiService: ApiService // Assuming you have an ApiService for network calls
 ) : ViewModel() {
 
-    // LiveData for the current ride
-    private val _currentRide = MutableLiveData<Ride?>()
-    val currentRide: LiveData<Ride?> = _currentRide
+    // StateFlow for the current ride
+    private val _currentRide = MutableStateFlow<Ride?>(null)
+    val currentRide: StateFlow<Ride?> = _currentRide
 
-    // LiveData for ride assignment status
-    private val _rideAssignmentStatus = MutableLiveData<RideAssignmentStatus>()
-    val rideAssignmentStatus: LiveData<RideAssignmentStatus> = _rideAssignmentStatus
+    // StateFlow for ride assignment status
+    private val _rideAssignmentStatus = MutableStateFlow<RideAssignmentStatus>(RideAssignmentStatus.NoRides)
+    val rideAssignmentStatus: StateFlow<RideAssignmentStatus> = _rideAssignmentStatus
 
     init {
         // Initialize ride assignment listener or fetch rides

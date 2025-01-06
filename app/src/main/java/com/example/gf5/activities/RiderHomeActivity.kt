@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.gf5.ui.theme.GF5Theme
-import com.example.gf5.viewmodels.RiderHomeViewModel
+import com.example.gf5.viewModels.RiderHomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 

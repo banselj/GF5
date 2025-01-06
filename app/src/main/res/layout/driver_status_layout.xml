@@ -6,10 +6,10 @@
 
         <variable
             name="viewModel"
-            type="com.example.gf5.viewmodels.DriverViewModel" />
+            type="com.example.gf5.viewModels.DriverViewModel" />
         <variable
             name="statusViewModel"
-            type="com.example.gf5.viewmodels.DriverStatusViewModel" />
+            type="com.example.gf5.viewModels.DriverStatusViewModel" />
 
     </data>
 

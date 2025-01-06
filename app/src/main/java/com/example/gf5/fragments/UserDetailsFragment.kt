@@ -9,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.gf5.databinding.FragmentUserDetailsBinding
-import com.example.gf5.models.UserDetailsViewModel
-import com.example.gf5.viewmodels.UserDetailsViewModel
-import kotlinx.coroutines.flow.collect
+import com.example.gf5.viewModels.UserDetailsViewModel
 import kotlinx.coroutines.launch
 
 /**

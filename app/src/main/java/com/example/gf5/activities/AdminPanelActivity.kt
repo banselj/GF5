@@ -17,13 +17,9 @@ import com.example.gf5.databinding.ActivityAdminPanelBinding
 import com.example.gf5.models.Ad
 import com.example.gf5.models.Ride
 import com.example.gf5.models.User
-import com.example.gf5.viewmodels.AdminViewModel
+import com.example.gf5.viewModels.AdminViewModel
 import kotlinx.coroutines.launch
 
-
-/**
- * Activity representing the Admin Panel where administrators can manage users, rides, and ads.
- */
 class AdminPanelActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAdminPanelBinding
@@ -42,57 +38,35 @@ class AdminPanelActivity : AppCompatActivity() {
         setupRecyclerViews()
         observeData()
 
-        binding.refreshButton.setOnClickListener {
-            refreshData()
-        }
-
         binding.logoutButton.setOnClickListener {
             handleLogout()
         }
+
+        binding.refreshButton.setOnClickListener {
+            refreshData()
+        }
     }
 
-    private fun setContentView(root: Any) {
-
-    }
-
-    /**
-     * Sets up all RecyclerViews with their respective adapters and layout managers.
-     */
     private fun setupRecyclerViews() {
-        // Set up User RecyclerView
         userAdapter = UserAdapter { user: User ->
-            // Handle user item click
             showUserOptions(user)
         }
-        binding.usersRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this@AdminPanelActivity)
-            adapter = userAdapter
-        }
+        binding.usersRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.usersRecyclerView.adapter = userAdapter
 
-        // Set up Ride RecyclerView
         rideAdapter = RideAdapter { ride: Ride ->
-            // Handle ride item click
             showRideDetails(ride)
         }
-        binding.ridesRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this@AdminPanelActivity)
-            adapter = rideAdapter
-        }
+        binding.ridesRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.ridesRecyclerView.adapter = rideAdapter
 
-        // Set up Ad RecyclerView
         adAdapter = AdAdapter { ad: Ad ->
-            // Handle ad item click
             showAdDetails(ad)
         }
-        binding.adsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this@AdminPanelActivity)
-            adapter = adAdapter
-        }
+        binding.adsRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.adsRecyclerView.adapter = adAdapter
     }
 
-    /**
-     * Observes data from the [AdminViewModel] and updates UI accordingly.
-     */
     private fun observeData() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -140,51 +114,27 @@ class AdminPanelActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Refreshes data by fetching latest users, rides, and ads.
-     */
     private fun refreshData() {
         adminViewModel.refreshData()
         Toast.makeText(this, "Data refreshed", Toast.LENGTH_SHORT).show()
     }
 
-    /**
-     * Handles user logout by invoking the ViewModel and finishing the activity.
-     */
     private fun handleLogout() {
         adminViewModel.logout()
         finish()
     }
 
-    /**
-     * Displays options related to the selected user.
-     *
-     * @param user The user selected from the RecyclerView.
-     */
     private fun showUserOptions(user: User) {
-        // Navigate to UserDetailActivity
         val intent = Intent(this, UserDetailActivity::class.java)
         intent.putExtra("USER_ID", user.id)
         startActivity(intent)
     }
 
-    /**
-     * Displays details of the selected ride.
-     *
-     * @param ride The ride selected from the RecyclerView.
-     */
     private fun showRideDetails(ride: Ride) {
-        // Implement ride details view
         Toast.makeText(this, "Selected ride ID: ${ride.id}", Toast.LENGTH_SHORT).show()
     }
 
-    /**
-     * Displays details of the selected advertisement.
-     *
-     * @param ad The ad selected from the RecyclerView.
-     */
     private fun showAdDetails(ad: Ad) {
-        // Implement ad details view
         Toast.makeText(this, "Selected ad campaign: ${ad.campaignName}", Toast.LENGTH_SHORT).show()
     }
 }

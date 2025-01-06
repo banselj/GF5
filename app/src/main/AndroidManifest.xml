@@ -59,7 +59,7 @@
         <activity android:name=".activities.RegistrationActivity" android:exported="true"/>
         <activity android:name=".activities.DriverHomeActivity" android:exported="true"/>
         <activity android:name=".activities.RiderHomeActivity" android:exported="true"/>
-        <activity android:name=".RideRequestActivity" android:exported="true"/>
+        <activity android:name=".activities.RideRequestActivity" android:exported="true"/>
         <activity android:name=".activities.DriverMatchingActivity" android:exported="true"/>
         <activity android:name=".activities.MapsActivity" android:exported="true"/>
 

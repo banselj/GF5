@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class OnfidoRepositoryImpl @Inject constructor(
     private val apiService: ApiService
-) : OnfidoRepository {
+) : OnfidoRepository() {
 
     override suspend fun fetchSdkToken(): String {
         val response = apiService.getOnfidoSdkToken()

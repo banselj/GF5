@@ -2,12 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <!-- Define your data variables here -->
         <variable
             name="viewModel"
-            type="com.example.gf5.viewmodels.LoginViewModel" />
+            type="com.example.gf5.viewModels.LoginViewModel" />
     </data>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,25 +13,42 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Your UI components here -->
+        <!-- Email Input -->
         <EditText
-            android:id="@+id/usernameEditText"
+            android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username" />
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
 
+        <!-- Password Input -->
         <EditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="12dp"
             android:hint="Password"
             android:inputType="textPassword" />
 
+        <!-- Login Button -->
         <Button
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login" />
+            android:minHeight="48dp"
+            android:text="Login"
+            android:layout_marginTop="16dp" />
 
+        <!-- Forgot Password Button -->
+        <Button
+            android:id="@+id/forgotPasswordButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="Forgot Password?"
+            android:layout_marginTop="8dp" />
     </LinearLayout>
 </layout>

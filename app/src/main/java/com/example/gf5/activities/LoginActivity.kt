@@ -10,46 +10,30 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.gf5.R
 import com.example.gf5.databinding.ActivityLoginBinding
-import com.example.gf5.viewmodels.LoginViewModel
+import com.example.gf5.viewModels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    // ViewBinding instance
     private lateinit var binding: ActivityLoginBinding
-
-    // Injected ViewModel
     private val viewModel: LoginViewModel by viewModels()
-
-    // Logging tag
     private val TAG = "LoginActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate called")
 
-        // Initialize ViewBinding
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Setup UI elements
         setupUI()
-
-        // Setup click listeners
         setupListeners()
-
-        // Observe ViewModel LiveData
         observeViewModel()
     }
 
-    /**
-     * Initialize UI elements with animations or default states.
-     */
     private fun setupUI() {
         Log.d(TAG, "Setting up UI elements")
-        // Fade in animations
         listOf(
             binding.emailEditText,
             binding.passwordEditText,
@@ -60,9 +44,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Setup click listeners for buttons.
-     */
     private fun setupListeners() {
         Log.d(TAG, "Setting up listeners for buttons")
 
@@ -87,13 +68,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Observe LiveData from ViewModel to update UI based on authentication state.
-     */
     private fun observeViewModel() {
         Log.d(TAG, "Observing ViewModel LiveData")
 
-        // Observe login state
         viewModel.loginState.observe(this, Observer { state ->
             when (state) {
                 is LoginViewModel.LoginState.Success -> {
@@ -107,12 +84,10 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is LoginViewModel.LoginState.Loading -> {
                     Log.d(TAG, "Login in progress")
-                    // Optionally, show a loading indicator
                 }
             }
         })
 
-        // Observe password reset state
         viewModel.resetPasswordState.observe(this, Observer { state ->
             when (state) {
                 is LoginViewModel.ResetPasswordState.Success -> {
@@ -125,15 +100,11 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is LoginViewModel.ResetPasswordState.Loading -> {
                     Log.d(TAG, "Sending password reset email")
-                    // Optionally, show a loading indicator
                 }
             }
         })
     }
 
-    /**
-     * Navigate to the RideRequestActivity after successful login.
-     */
     private fun navigateToRideRequestActivity() {
         Log.d(TAG, "Navigating to RideRequestActivity")
         val intent = Intent(this, RideRequestActivity::class.java).apply {
@@ -143,9 +114,6 @@ class LoginActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 
-    /**
-     * Validate the login form inputs.
-     */
     private fun validateForm(email: String, password: String): Boolean {
         Log.d(TAG, "Validating form with email: $email")
         return when {
@@ -163,9 +131,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Show a toast message to the user.
-     */
     private fun showToast(message: String) {
         Log.d(TAG, "Showing toast message: $message")
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

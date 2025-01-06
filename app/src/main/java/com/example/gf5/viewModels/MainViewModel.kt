@@ -1,4 +1,4 @@
-package com.example.gf5.viewmodels
+package com.example.gf5.viewModels
 
 import androidx.compose.ui.tooling.data.EmptyGroup.data
 
@@ -43,4 +43,5 @@ class MainViewModel<MainActivity> {
             data.postValue(response.body())
         }
 
+    }
 }

@@ -9,7 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.gf5.databinding.ActivityProfileBinding
-import com.example.gf5.viewmodels.ProfileViewModel
+import com.example.gf5.viewModels.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

@@ -1,6 +1,5 @@
 package com.example.gf5.services
 
-
 import android.Manifest
 import android.app.Notification
 import android.app.NotificationChannel
@@ -12,6 +11,7 @@ import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.example.gf5.R
@@ -42,11 +42,9 @@ class DriverTrackingService : Service() {
     override fun onCreate() {
         super.onCreate()
 
-        // Initialize location callback
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 for (location in locationResult.locations) {
-                    // Handle location updates (e.g., send to server)
                     Log.d(TAG, "Location update: ${location.latitude}, ${location.longitude}")
                 }
             }
@@ -57,16 +55,10 @@ class DriverTrackingService : Service() {
             }
         }
 
-        // Start foreground service with notification
         startForegroundServiceWithNotification()
-
-        // Start requesting location updates
         startLocationUpdates()
     }
 
-    /**
-     * Starts the service in the foreground with an ongoing notification.
-     */
     private fun startForegroundServiceWithNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel()
@@ -76,34 +68,28 @@ class DriverTrackingService : Service() {
         startForeground(NOTIFICATION_ID, notification)
     }
 
-    /**
-     * Creates a notification for the foreground service.
-     */
     private fun createNotification(): Notification {
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(getString(R.string.driver_tracking_active))
             .setContentText(getString(R.string.location_tracking_running))
-            .setSmallIcon(R.drawable.ic_tracker) // Ensure this icon exists
-            .setPriority(NotificationCompat.PRIORITY_LOW) // Suitable priority for background services
+            .setSmallIcon(R.drawable.ic_tracker)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
-            .setOngoing(true) // Makes the notification non-dismissible
+            .setOngoing(true)
 
         return builder.build()
     }
 
-    /**
-     * Creates a notification channel for Android O and above.
-     */
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel() {
         val channelName = "Driver Tracking Service"
         val channelDescription = "Tracks driver's location in real-time."
-        val importance = NotificationManager.IMPORTANCE_LOW // Low importance for background services
+        val importance = NotificationManager.IMPORTANCE_LOW
 
         val channel = NotificationChannel(CHANNEL_ID, channelName, importance).apply {
             description = channelDescription
-            setSound(null, null) // Disable sound
-            enableVibration(false) // Disable vibration
+            setSound(null, null)
+            enableVibration(false)
         }
 
         val notificationManager: NotificationManager =
@@ -111,22 +97,23 @@ class DriverTrackingService : Service() {
         notificationManager.createNotificationChannel(channel)
     }
 
-    /**
-     * Starts requesting location updates.
-     */
     private fun startLocationUpdates() {
-        // Check for location permissions before requesting updates
         if (hasLocationPermissions()) {
-            if (ContextCompat.checkSelfPermission(
+            if (ActivityCompat.checkSelfPermission(
                     this,
                     Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                     this,
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                Log.e(TAG, "Location permissions not granted.")
-                stopSelf() // Stop service if permissions are not granted
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
                 return
             }
             fusedLocationClient.requestLocationUpdates(
@@ -136,13 +123,10 @@ class DriverTrackingService : Service() {
             )
         } else {
             Log.e(TAG, "Location permissions not granted.")
-            stopSelf() // Stop service if permissions are not granted
+            stopSelf()
         }
     }
 
-    /**
-     * Checks if the app has necessary location permissions.
-     */
     private fun hasLocationPermissions(): Boolean {
         val fineLocation = ContextCompat.checkSelfPermission(
             this,
@@ -160,33 +144,23 @@ class DriverTrackingService : Service() {
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         } else {
-            true // Background location not required for pre-Android Q
+            true
         }
 
         return fineLocation && coarseLocation && backgroundLocation
     }
 
-    /**
-     * Stops requesting location updates when the service is destroyed.
-     */
     override fun onDestroy() {
         super.onDestroy()
         fusedLocationClient.removeLocationUpdates(locationCallback)
         Log.d(TAG, "DriverTrackingService destroyed")
     }
 
-    /**
-     * Defines the behavior of the service when it receives a start request.
-     */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d(TAG, "DriverTrackingService onStartCommand called")
-        // If the service is killed by the system, it won't be recreated until explicitly started again
         return START_NOT_STICKY
     }
 
-    /**
-     * This service is not designed to support binding.
-     */
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
