@@ -51,6 +51,10 @@ class RegistrationActivity : AppCompatActivity() {
         setupListeners()
     }
 
+    private fun setContentView(root: Any) {
+
+    }
+
     private fun setupObservers() {
         registrationViewModel.registrationState.observe(this, Observer { state ->
             when (state) {

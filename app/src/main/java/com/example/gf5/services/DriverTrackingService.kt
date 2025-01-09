@@ -33,8 +33,8 @@ class DriverTrackingService : Service() {
 
     private val locationRequest: LocationRequest = LocationRequest.Builder(
         Priority.PRIORITY_HIGH_ACCURACY,
-        10_000L // 10 seconds
-    ).setMinUpdateIntervalMillis(5_000L) // 5 seconds
+        10_000L
+    ).setMinUpdateIntervalMillis(5_000L)
         .build()
 
     private lateinit var locationCallback: LocationCallback
@@ -107,13 +107,6 @@ class DriverTrackingService : Service() {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return
             }
             fusedLocationClient.requestLocationUpdates(
@@ -157,7 +150,6 @@ class DriverTrackingService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d(TAG, "DriverTrackingService onStartCommand called")
         return START_NOT_STICKY
     }
 
